@@ -154,7 +154,7 @@ python -m lm_eval --model sglang-generate --output_path <path_to_model> --batch_
 ### Бенчмарки instruct
 
 
-| Метрика                   | GigaChat 3 Lightning | Qwen3-1.7B-Instruct-2507 | Qwen3-4B-Instruct-2507 | SmolLM3 |
+| Метрика                   | GigaChat 3 Lightning | Qwen3-1.7B-Instruct | Qwen3-4B-Instruct-2507 | SmolLM3 |
 | ------------------------- | ---------------------: | -----------------------: | ---------------------: | ------: |
 | MMLU_RU_FIVE_SHOT         |                 0.6833 |                   0.4876 |                 0.5972 |  0.4998 |
 | RUBQ_ZERO_SHOT            |                 0.6516 |                   0.2557 |                 0.3170 |  0.6363 |
