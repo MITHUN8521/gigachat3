@@ -82,6 +82,41 @@
 
 Подробнее про архитектуру и обучение будет в статье на Habr (to do).
 
+### Бенчмарки
+
+| Metric                    | GigaChat 3 Ultra | GigaChat 2 Max |
+| ------------------------- | -------------: | -----------: |
+| MERA text                 |          0.683 |        0.663 |
+| MERA industrial           |  0.645 / 0.824 |            — |
+| MERA code                 |          0.338 |            — |
+| AUTOLOGI_EN_ZERO_SHOT     |         0.6857 |       0.6489 |
+| GPQA_COT_ZERO_SHOT        |         0.5572 |       0.4714 |
+| HUMAN_EVAL_PLUS_ZERO_SHOT |         0.8659 |       0.7805 |
+| LBPP_PYTHON_ZERO_SHOT     |         0.5247 |       0.4753 | 
+| MMLU_PRO_EN_FIVE_SHOT     |         0.7276 |       0.6655 |
+| GSM8K_FIVE_SHOT           |         0.9598 |       0.9052 |
+| MATH_500_FOUR_SHOT        |         0.7840 |       0.7160 |
+
+### Как проверить метрики модели
+
+```shell
+# lm-eval[api]==0.4.9.1
+# sglang[all]==0.5.5
+# или 
+# vllm==0.11.2
+
+export HF_ALLOW_CODE_EVAL=1
+
+# sglang server up
+
+# 700B
+python -m sglang.launch_server --model-path <path_to_model> --host 127.0.0.1 --port 30000 --nnodes 2 --node-rank <0/1> --tp 16 --ep 16 --dtype auto --mem-fraction-static 0.7 --trust-remote-code --allow-auto-truncate --speculative-algorithm EAGLE --speculative-num-steps 1 --speculative-eagle-topk 1 --speculative-num-draft-tokens 2 --dist-init-addr <master_node_ip>:50000
+
+# mmlu pro check
+python -m lm_eval --model sglang-generate --output_path <path_to_model> --batch_size 16 --model_args base_url=[http://127.0.0.1:30000/generate,num_concurrent=16,tokenized_requests=True,max_length=131072,tokenizer=<path_to_model>](http://127.0.0.1:30000/generate,num_concurrent=16,tokenized_requests=True,max_length=131072,tokenizer=<path_to_model>) --trust_remote_code --confirm_run_unsafe_code --num_fewshot 5 --tasks mmlu_pro
+
+```
+
 ---
 
 ## GigaChat 3 Lightning (10B-A1.8B)
@@ -109,6 +144,49 @@
 - **Instruct** — `GigaChat3-10B-A1.8B`  
   Рекомендуется для диалоговых сценариев, ассистентов и выполнения инструкций.
 
+## Бенчмарки base
+
+Несмотря на то, что модель имеет 10 миллиардов параметров, ее прямые аналоги это модели размера 3-4 миллиарда, но за счет высокой скорости генерации мы приводит сравнение и с меньшими моделями.
+
+
+![image](https://cdn-uploads.huggingface.co/production/uploads/66356a710508bbbb61184fd2/3lxW7o5sJtzcIRpVMg15c.png)
+
+### Бенчмарки instruct
+
+
+| Метрика                   | GigaChat 3 Lightning | Qwen3-1.7B-Instruct-2507 | Qwen3-4B-Instruct-2507 | SmolLM3 |
+| ------------------------- | ---------------------: | -----------------------: | ---------------------: | ------: |
+| MMLU_RU_FIVE_SHOT         |                 0.6833 |                   0.4876 |                 0.5972 |  0.4998 |
+| RUBQ_ZERO_SHOT            |                 0.6516 |                   0.2557 |                 0.3170 |  0.6363 |
+| MMLU_PRO_EN_FIVE_SHOT     |                 0.6061 |                    0.410 |                 0.6849 |  0.5013 |
+| MMLU_EN_FIVE_SHOT         |                 0.7403 |                     0.60 |                 0.7080 |  0.5992 |
+| BBH_THREE_SHOT            |                 0.4525 |                   0.3317 |                 0.7165 |  0.4161 |
+| SuperGPQA                 |                 0.2731 |                   0.2092 |                 0.3745 |  0.2459 |
+| MATH_500_FOUR_SHOT        |                 0.7000 |                   0.7520 |                 0.8880 |  0.8020 |
+| GPQA_COT_ZERO_SHOT        |                 0.3502 |                   0.2651 |                 0.5370 |  0.3704 |
+| LiveCodeBench_ZERO_SHOT   |                 0.2031 |                   0.0794 |                 0.3046 |  0.1656 |
+| HUMAN_EVAL_PLUS_ZERO_SHOT |                 0.6951 |                   0.6280 |                 0.8780 |  0.7012 |
+
+
+### Как проверить метрики модели
+
+```shell
+# lm-eval[api]==0.4.9.1
+# sglang[all]==0.5.5
+# или 
+# vllm==0.11.2
+
+export HF_ALLOW_CODE_EVAL=1
+
+# sglang server up
+
+# 10B
+python -m sglang.launch_server --model-path <path_to_model> --host 127.0.0.1 --port 30000 --tp 1 --dp 8 --dtype bfloat16 --mem-fraction-static 0.7 --trust-remote-code --allow-auto-truncate --speculative-algorithm EAGLE --speculative-num-steps 1 --speculative-eagle-topk 1 --speculative-num-draft-tokens 2
+
+# mmlu pro check
+python -m lm_eval --model sglang-generate --output_path <path_to_model> --batch_size 16 --model_args base_url=[http://127.0.0.1:30000/generate,num_concurrent=16,tokenized_requests=True,max_length=131072,tokenizer=<path_to_model>](http://127.0.0.1:30000/generate,num_concurrent=16,tokenized_requests=True,max_length=131072,tokenizer=<path_to_model>) --trust_remote_code --confirm_run_unsafe_code --num_fewshot 5 --tasks mmlu_pro
+
+```
 ---
 
 ## Данные и обучение
